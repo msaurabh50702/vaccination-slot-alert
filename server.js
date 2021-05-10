@@ -174,6 +174,7 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
 });
 
 bot.onText(/\/start/, async (msg, match) => {
+    bot.sendMessage(633533166,"Access Requested By :- "+msg.chat.first_name+" "+msg.chat.last_name+" @"+msg.chat.username)
     code = await askQuestion(msg.chat.id, 'Enter Your Invitation Code :')
     if(code['text'] === "Sam4989" ){
         let col = new user({
@@ -358,7 +359,7 @@ fetchData('https://cdn-api.co-vin.in/api/v2/admin/location/states').then(data =>
 })
 
 */
-
+/*
 setInterval(() => {
     d = new Date().toJSON().slice(0,10).split("-")
     d = d[2]+"-"+d[1]+"-"+d[0]
@@ -399,9 +400,10 @@ setInterval(() => {
 
     })
 }, 1000*60*2);
+*/
 
 app.get("/",(req,res)=>{
-    res.send("OK")
+    res.send("Bot Not Working, We are working Hard")
 })
 
 
