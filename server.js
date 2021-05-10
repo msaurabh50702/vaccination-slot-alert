@@ -9,7 +9,7 @@ require("dotenv").config()
 const bot = new TelegramBot(process.env.tokens, {polling: true});
 const app = express()
 const db = require("./initDB")
-const { user,appn } = require("./Schema");
+const { user,appn } = require("./schema");
 const { now } = require("mongoose");
 
 
