@@ -400,4 +400,11 @@ setInterval(() => {
     })
 }, 1000*60*2);
 
+app.get("/",(req,res)=>{
+    res.send("OK")
+})
 
+
+app.listen(process.env.PORT,()=>{
+    console.log("Server Running")
+})
