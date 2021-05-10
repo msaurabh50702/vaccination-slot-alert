@@ -393,8 +393,8 @@ setInterval(() => {
                     }
                 }
             })
-        }).catch(()=>{
-            console.log("Time Out")
+        }).catch((err)=>{
+            console.log("Time Out -> "+err)
         })
 
     })
