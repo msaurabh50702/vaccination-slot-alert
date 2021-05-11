@@ -54,8 +54,8 @@ async function fetchData(url) {
 async function fetchData1(url) {
     const agent = tunnel.httpsOverHttp({
         proxy: {
-            host: '13.127.74.133',
-            port: 80,
+            host: process.env.PROXY_HOST,
+            port: process.env.PROXY_PORT,
         },
     });
     return axios.get(url,{ headers: { 
@@ -192,7 +192,7 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
 });
 
 bot.onText(/\/start/, async (msg, match) => {
-    //bot.sendMessage(633533166,"Access Requested By :- "+msg.chat.first_name+" "+msg.chat.last_name+" @"+msg.chat.username)
+    bot.sendMessage(process.env.MY_CHAT_ID,"Access Requested By :- "+msg.chat.first_name+" "+msg.chat.last_name)
     code = await askQuestion(msg.chat.id, 'Enter Your Invitation Code :')
     if(code['text'] === "Sam4989" ){
         let col = new user({
@@ -388,7 +388,7 @@ setInterval(() => {
                 if(zip.indexOf(String(center.pincode)) != -1){
                     try{
                         center.sessions.forEach(session =>{
-                            if(session.available_capacity >= 0){
+                            if(session.available_capacity > 0){
                                 //console.log(center)
                                 user.findOne({'appl.pin':Number(center.pincode), "appl.a_age"  : {$gte : session.min_age_limit} },function (err, data) {
                                     if (err) return handleError(err);
@@ -408,20 +408,22 @@ setInterval(() => {
                             }
                         })
                     }catch(err){
+                        bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>")
                         console.log("Error -> "+err)
                     }
                 }
             })
         }).catch((err)=>{
+            bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>")
             console.log("Time Out -> "+err)
         })
 
     })
-}, 3000);
+}, 1000*60*2);
 
 
 app.get("/",(req,res)=>{
-    res.send("Bot Not Working, We are working Hard")
+    res.send("Please Use Telegram Bot")
 })
 
 
