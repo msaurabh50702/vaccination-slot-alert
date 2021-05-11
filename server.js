@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const https = require('https');
 const TelegramBot = require('node-telegram-bot-api');
 const { Keyboard,Key } = require('telegram-keyboard')
+const axios = require('axios');
+const tunnel = require('tunnel');
 
 require("dotenv").config()
 
@@ -24,7 +26,9 @@ let ListOfDistricts = ['Ahmednagar']
 
 async function fetchData(url) {
     return new Promise((resolve, reject) => {
-      const request = https.get(url, { timeout: 1000 }, (res) => {
+      const request = https.get(url,{headers: {
+             userAgent: "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
+        } }, (res) => {
         if (res.statusCode < 200 || res.statusCode > 299) {
           return reject(new Error(`HTTP status code ${res.statusCode}`))
         }
@@ -45,7 +49,21 @@ async function fetchData(url) {
         reject(new Error('timed out'))
       })
     })
-  }
+}
+
+async function fetchData1(url) {
+    const agent = tunnel.httpsOverHttp({
+        proxy: {
+            host: '13.127.74.133',
+            port: 80,
+        },
+    });
+    return axios.get(url,{ headers: { 
+                                'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
+                             },
+                             httpsAgent: agent,
+                    })
+}
 
 const answerCallbacks = {};
 
@@ -174,7 +192,7 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
 });
 
 bot.onText(/\/start/, async (msg, match) => {
-    bot.sendMessage(633533166,"Access Requested By :- "+msg.chat.first_name+" "+msg.chat.last_name+" @"+msg.chat.username)
+    //bot.sendMessage(633533166,"Access Requested By :- "+msg.chat.first_name+" "+msg.chat.last_name+" @"+msg.chat.username)
     code = await askQuestion(msg.chat.id, 'Enter Your Invitation Code :')
     if(code['text'] === "Sam4989" ){
         let col = new user({
@@ -359,14 +377,14 @@ fetchData('https://cdn-api.co-vin.in/api/v2/admin/location/states').then(data =>
 })
 
 */
-/*
+
 setInterval(() => {
     d = new Date().toJSON().slice(0,10).split("-")
     d = d[2]+"-"+d[1]+"-"+d[0]
     ListOfDistricts.forEach(district=>{
         did = getIdByKey(district)
-        fetchData("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
-            data.centers.forEach(center =>{
+        fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
+            data['data'].centers.forEach(center =>{
                 if(zip.indexOf(String(center.pincode)) != -1){
                     try{
                         center.sessions.forEach(session =>{
@@ -399,8 +417,8 @@ setInterval(() => {
         })
 
     })
-}, 1000*60*2);
-*/
+}, 3000);
+
 
 app.get("/",(req,res)=>{
     res.send("Bot Not Working, We are working Hard")
