@@ -8,7 +8,7 @@ const tunnel = require('tunnel');
 
 require("dotenv").config()
 
-const bot = new TelegramBot(process.env.tokens, {polling: true});
+const bot = new TelegramBot(process.env.tokens2, {polling: true});
 const app = express()
 const db = require("./initDB")
 const { user,appn } = require("./schema");
@@ -542,7 +542,7 @@ setInterval(() => {
         })
 
     })
-}, 10000*60*1);
+}, 1000*60*Number(process.env.ref_tm));
 
 
 app.get("/",(req,res)=>{
