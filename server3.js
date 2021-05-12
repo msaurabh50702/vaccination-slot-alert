@@ -225,7 +225,7 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
 });
 
 bot.onText(/\/start/, async (msg, match) => {
-    user.find().then(data => {console.log(data)})
+    console.log("Access Requested : "+msg.chat.first_name+" "+msg.chat.last_name)
     user.findOne({chat_id:msg.chat.id},async (err,data)=>{
         try{
             if(err) throw err;
