@@ -48,7 +48,6 @@ async function fetchData(url) {
           resolve(JSON.parse(resString))
         })
       })
-  
       request.on('error', (err) => {
         reject(err)
       })
