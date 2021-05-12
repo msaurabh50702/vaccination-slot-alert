@@ -533,11 +533,11 @@ setInterval(() => {
                     cr_port = b_port
                     b_port = t_port
                     b_host = t_host
-                    bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Server Shifted from : <code>"+b_host+":"+b_port+"</code> -> <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
+                    //bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Server Shifted from : <code>"+b_host+":"+b_port+"</code> -> <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
                 }
                 cr_err_cnt = 0
             }
-            bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>",{parse_mode:"HTML"})
+            //bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>",{parse_mode:"HTML"})
             console.log("Time Out -> "+err)
         })
 
