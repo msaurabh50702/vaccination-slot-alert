@@ -1,0 +1,1892 @@
+{
+    "centers": [
+        {
+            "center_id": 589460,
+            "name": "Belwandi PHC",
+            "address": "Belwandi",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 413702,
+            "lat": 18,
+            "long": 74,
+            "from": "10:30:00",
+            "to": "14:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "9637b05d-8a04-49f6-baa8-15bbadae059c",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-11:30AM",
+                        "11:30AM-12:30PM",
+                        "12:30PM-01:30PM",
+                        "01:30PM-02:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 111732,
+            "name": "Kohane PHC",
+            "address": "Kohane",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422610,
+            "lat": 19,
+            "long": 73,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "2b920e45-e359-45f3-aae1-eb487f3c3834",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 60275,
+            "name": "Astgaon PHC",
+            "address": "Astgaon",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahata",
+            "pincode": 413713,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "2ec1512e-887f-4dc1-ab65-53059628b3c3",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670781,
+            "name": "Takali Dokeshwar RH 2",
+            "address": "TAKALI DHOKESHWAR",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Parner",
+            "pincode": 414304,
+            "lat": 19,
+            "long": 74,
+            "from": "10:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "1318c9e3-d164-4461-b0fa-d52b34dc5795",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "10:00AM-12:00PM",
+                        "12:00PM-02:00PM",
+                        "02:00PM-04:00PM",
+                        "04:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 14735,
+            "name": "Cantonment Hospital",
+            "address": "Containment Hospital",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar Corporation",
+            "pincode": 414001,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "2aae4ed4-cb03-4065-9d07-b176e0b0fe67",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 588113,
+            "name": "Mahaladevi PHC",
+            "address": "Mahaldevi PHC",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422601,
+            "lat": 19,
+            "long": 73,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "66b4c4be-0f35-449d-8d53-69a3e5c40ca1",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 122554,
+            "name": "Chas PHC",
+            "address": "Chas Village",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414005,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "4ede1c9d-bd95-4623-804e-ce1c3df71f54",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 671577,
+            "name": "RAHURI RH 2",
+            "address": "RAHURI RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahuri",
+            "pincode": 413705,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "45b54860-ef8d-4d26-833c-62f441a49ef6",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 671497,
+            "name": "KARJAT SDH2",
+            "address": "KARJAT SDH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Karjat",
+            "pincode": 414402,
+            "lat": 19,
+            "long": 75,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "c8b8a3ed-f7d8-4b06-9f7c-ae1b532e69dd",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670463,
+            "name": "AKOLE RH 2",
+            "address": "AKOLE RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422601,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "e7454c1e-af56-4fc5-9e78-639de674f587",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670756,
+            "name": "CHICHONDI PATIL RH 2",
+            "address": "CHICHONDI PATIL",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414201,
+            "lat": 18,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "df4bf7bd-e6ab-458c-a4e0-85d7313d1f66",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670608,
+            "name": "SHEVGAON RH2",
+            "address": "SHEVGAON RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shevgaon",
+            "pincode": 414502,
+            "lat": 19,
+            "long": 75,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "f280e1e6-b903-4d41-9c4d-cb4909405619",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 671608,
+            "name": "Wambori RH 2",
+            "address": "WAMBORI RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahuri",
+            "pincode": 413704,
+            "lat": 18,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "73b3391f-53a1-4945-8b9a-782f1c5d2c98",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15823,
+            "name": "Jeur PHC",
+            "address": "Jeur Village",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414601,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "69e25cd6-b933-4f1e-9ac1-a7e20a88efae",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 111756,
+            "name": "Nighoj PHC",
+            "address": "Nighoj",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Parner",
+            "pincode": 414306,
+            "lat": 18,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "d9d12a04-9970-4010-8545-63da9298a14d",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 617023,
+            "name": "KASHTI PHC",
+            "address": "KASHTI",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 413701,
+            "lat": 18,
+            "long": 74,
+            "from": "10:30:00",
+            "to": "15:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "53f8aba7-492a-477e-a9b8-fff270a23a92",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-11:30AM",
+                        "11:30AM-12:30PM",
+                        "12:30PM-01:30PM",
+                        "01:30PM-03:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 118509,
+            "name": "Topkhana HP",
+            "address": "At Post -Topkhana District Ahmednagar",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar Corporation",
+            "pincode": 414004,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "bbe3c067-1c6c-4624-a040-49c274235727",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 60270,
+            "name": "Ashwi Khurd PHC",
+            "address": "Ashwi",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Sangamner",
+            "pincode": 413738,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "32e92d23-1a7c-4c7c-9ff4-cc8952c12dce",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15737,
+            "name": "Guha PHC",
+            "address": "Guha Village",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahuri",
+            "pincode": 413706,
+            "lat": 43,
+            "long": 89,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "6c7efcaa-f480-4b76-9e2e-a5b997e3f8d0",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 111743,
+            "name": "Mehakari PHC",
+            "address": "Mehakari",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414002,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "0cace600-33bb-4f77-b1ec-f697d65b0fef",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 588852,
+            "name": "Wakadi PHC",
+            "address": "Wakadi",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahata",
+            "pincode": 413719,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "667719ab-eb9b-4bd8-8043-1c4807e93610",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 116283,
+            "name": "Umbare PHC",
+            "address": "Umbre",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahuri",
+            "pincode": 414105,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "4de0660c-591f-4283-9d1d-6da30193415d",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15513,
+            "name": "Sonai PHC",
+            "address": "Sonai",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Newasa",
+            "pincode": 414105,
+            "lat": 19,
+            "long": 74,
+            "from": "10:00:00",
+            "to": "16:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "bc991ec5-8148-4a3b-8b2e-34f3fc5cfdec",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-01:00PM",
+                        "01:00PM-04:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 14890,
+            "name": "Dhandharphal PHC",
+            "address": "Dhandarpal",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Sangamner",
+            "pincode": 422603,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "8e3147f7-af12-4690-95c4-baef8ae8c8c7",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 111741,
+            "name": "Manjari PHC",
+            "address": "Manjari",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahuri",
+            "pincode": 413705,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "53469a27-7470-4096-aa21-ca38abb9a043",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15219,
+            "name": "Maveshi PHC",
+            "address": "Maveshi",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422604,
+            "lat": 19,
+            "long": 73,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "adcf6522-e94b-4e02-9d00-22ed36ff7435",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670637,
+            "name": "SANGAMNER RH 2",
+            "address": "SANGAMNER RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Sangamner",
+            "pincode": 422605,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "19ec8276-f702-4e73-ab7c-f03c9996d299",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                },
+                {
+                    "session_id": "a756e687-cb3d-45c4-af2a-ae88cbd9d965",
+                    "date": "11-05-2021",
+                    "available_capacity": 199,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 116265,
+            "name": "Rajur RH Covishield",
+            "address": "Rajur",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422604,
+            "lat": 19,
+            "long": 73,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "d9a7915c-b818-405f-9e20-c6a8362e81f0",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 625761,
+            "name": "Military Hospital Ahmednagar",
+            "address": "Military Hospital Ahmednagar",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar Corporation",
+            "pincode": 414002,
+            "lat": 19,
+            "long": 74,
+            "from": "10:30:00",
+            "to": "13:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "fb0beb12-0038-4356-bd10-6107e0298b41",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-12:30PM",
+                        "12:30PM-01:30PM"
+                    ]
+                },
+                {
+                    "session_id": "88b9c69d-3616-4a58-b996-071a7051bf30",
+                    "date": "11-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-12:30PM",
+                        "12:30PM-01:30PM"
+                    ]
+                },
+                {
+                    "session_id": "82e21186-0135-41c5-b376-cc432866ac78",
+                    "date": "13-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-12:30PM",
+                        "12:30PM-01:30PM"
+                    ]
+                },
+                {
+                    "session_id": "d3682e5b-56c0-4bff-9e42-4e4a4c1d84b6",
+                    "date": "14-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-12:30PM",
+                        "12:30PM-01:30PM"
+                    ]
+                },
+                {
+                    "session_id": "7e07bdf5-6e02-4d12-ae93-9c46f32adec7",
+                    "date": "15-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-12:30PM",
+                        "12:30PM-01:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 671643,
+            "name": "JAMKHED RH 2",
+            "address": "JAMKHED RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Jamkhed",
+            "pincode": 413201,
+            "lat": 18,
+            "long": 75,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "b7b5f7cb-a7be-4b5c-b8bc-b66130e3f7d6",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15082,
+            "name": "Khirwire PHC",
+            "address": "Khirwire",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422601,
+            "lat": 0,
+            "long": 0,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "bea67e33-fc7f-4a91-9df2-56a91cfc0135",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15755,
+            "name": "Loni Vyanknath PHC",
+            "address": "Loni Village",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 413702,
+            "lat": 18,
+            "long": 74,
+            "from": "10:30:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "6ab1435a-98c9-4828-bab7-2bc2e0572cde",
+                    "date": "10-05-2021",
+                    "available_capacity": 0.3999999999999999,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-12:30PM",
+                        "12:30PM-02:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 671517,
+            "name": "SHRIGONDA RH 2",
+            "address": "SHRIGONDA RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 413701,
+            "lat": 18,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "8cee6f50-db6e-4c98-baa3-98e0681432c5",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670412,
+            "name": "NEWASA RH 2",
+            "address": "NEWASA RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Newasa",
+            "pincode": 414603,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "b7716334-c5f3-4ae2-8a13-eb2d21ae9317",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 118627,
+            "name": "Rui Chattishi PHC",
+            "address": "Rui Chattishi Village",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414002,
+            "lat": 18,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "fd7faf6f-7cc3-4a7f-9cdd-74095a0e24be",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 116277,
+            "name": "Sawalivihir PHC",
+            "address": "Sawalivihir",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahata",
+            "pincode": 423109,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "a6a186d4-ae1e-43dd-994e-54e1e1dad9c5",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15583,
+            "name": "Taklimiya PHC",
+            "address": "Taklimiya",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahuri",
+            "pincode": 413706,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "55c98984-5864-4617-9f4b-816adc234cbc",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 14905,
+            "name": "Dorhale PHC",
+            "address": "Dorhale",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahata",
+            "pincode": 423107,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "bf8c5afc-3b32-4ada-ab13-5be0971da645",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 671586,
+            "name": "PARNER RH 2",
+            "address": "PARNER RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Parner",
+            "pincode": 414302,
+            "lat": 18,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "55054f71-45ca-498b-b888-e1b7f166ee18",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670564,
+            "name": "PATHARDI SDH 2",
+            "address": "PATHARDI SDH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Pathardi",
+            "pincode": 414102,
+            "lat": 19,
+            "long": 75,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "4e3c35ee-e2bc-40ea-8a8c-625ee884b226",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 83798,
+            "name": "Devlali Pravara PHC",
+            "address": "Devlali",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Rahuri",
+            "pincode": 413716,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "91b65eb6-f5f3-4f8a-8fe1-3d147bb6c443",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 14717,
+            "name": "Brahmanwada PHC",
+            "address": "Bramanwada",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422610,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "13:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "4546a6b6-2ba5-43a9-bdf7-f662b6a14dea",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-01:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15635,
+            "name": "Vitha PHC",
+            "address": "Vitha",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422604,
+            "lat": 19,
+            "long": 73,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "50d835dd-174d-4027-a8f5-bac80c08680b",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 14950,
+            "name": "Hatgaon PHC",
+            "address": "Hatgaon",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shevgaon",
+            "pincode": 414503,
+            "lat": 19,
+            "long": 75,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "2a2ac6cf-4b2a-4077-a941-66e10f578133",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 81819,
+            "name": "Chandanapuri PHC",
+            "address": "Chandanapuri",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Sangamner",
+            "pincode": 422605,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "762bb9af-e8b9-492e-b171-4b121f0d8ae9",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15114,
+            "name": "Kolgaon PHC",
+            "address": "Kolgaon",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 413728,
+            "lat": 18,
+            "long": 74,
+            "from": "10:30:00",
+            "to": "14:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "728e834d-8d20-4a20-8051-4858a459197f",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "10:30AM-11:30AM",
+                        "11:30AM-12:30PM",
+                        "12:30PM-01:30PM",
+                        "01:30PM-02:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 670527,
+            "name": "KOPARGAON RH 2",
+            "address": "Kopargaon Rh",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Kopargaon",
+            "pincode": 423601,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "16:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "11e5f11a-174b-4809-875b-bfe07fc37e41",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-04:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 116260,
+            "name": "Pimpalgaon Pisa PHC",
+            "address": "Pimpalgaon",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 413703,
+            "lat": 18,
+            "long": 74,
+            "from": "11:00:00",
+            "to": "13:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "dc2d49e8-5be2-45b3-8321-8c95952d68de",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "11:00AM-01:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 8,
+            "name": "Adhalgaon PHC",
+            "address": "Adhalgaon",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 413701,
+            "lat": 18,
+            "long": 74,
+            "from": "11:00:00",
+            "to": "13:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "7b922e93-c94f-417f-92f5-1c4569deb4d9",
+                    "date": "10-05-2021",
+                    "available_capacity": 0.3999999999999999,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "11:00AM-01:00PM",
+                        "01:00PM-01:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15029,
+            "name": "Khadakwadi PHC",
+            "address": "Khadakwadi",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Parner",
+            "pincode": 414304,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "501231ff-b6a4-4595-949a-6f34574a22e2",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 83804,
+            "name": "Walki PHC",
+            "address": "Walki",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414006,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:30:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "17549c01-5777-4759-afda-83f3f4bc30b9",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:30PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 646096,
+            "name": "Civil Hospital(COVAXIN)",
+            "address": "Civil Hospital Ahmednagar",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414001,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "0f6f593f-2d42-4f9e-bd10-8e8aa5a1c1a0",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 111724,
+            "name": "Javale Kadlag PHC",
+            "address": "Javale Kadlag",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Sangamner",
+            "pincode": 422605,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "105c20a6-03ef-4b3e-b5a0-fb6547303c18",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 14874,
+            "name": "Devthan PHC",
+            "address": "Devthan",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422601,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "b898baa3-6157-46d6-9665-7d5437725ba4",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 613191,
+            "name": "PHC LADGAON (SC WAKI)",
+            "address": "WAKI  LADGAON AKOLE",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422604,
+            "lat": 19,
+            "long": 73,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "110bb734-3560-43f1-a32d-173420c90170",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15199,
+            "name": "Mandavgan PHC",
+            "address": "Mandavgan",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrigonda",
+            "pincode": 414101,
+            "lat": 18,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "16:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "888953ea-f8b4-4df7-b755-367805f4ac73",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-04:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 671545,
+            "name": "SHRIRAMPUR RH 2",
+            "address": "SHRIRAMPUR RH",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrirampur",
+            "pincode": 413709,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "68b7ddf5-d56d-43d2-8186-3d3956886c09",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 122595,
+            "name": "Civil Hospital (COVISHIELD)",
+            "address": "Civil HospitalAhmednagar",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar",
+            "pincode": 414001,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "078e2b0b-aeb1-4fed-8ebc-64b98b75219a",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 122644,
+            "name": "Shendi PHC",
+            "address": "Shendi",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Akole",
+            "pincode": 422604,
+            "lat": 19,
+            "long": 73,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "200b23f7-f08b-43f9-827a-9bb1670af75c",
+                    "date": "10-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 589940,
+            "name": "Bhalwani PHC Center",
+            "address": "Bhalwani",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Parner",
+            "pincode": 414103,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "6bdd0e6a-cd31-4fd4-a033-c7747d1c03e6",
+                    "date": "11-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 81826,
+            "name": "Civil Health Post",
+            "address": "SAVITRIBAI FULE SANKUL TV CENTER NEAR AKASHWANI KENDRA SAVEDI",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Ahmednagar Corporation",
+            "pincode": 414001,
+            "lat": 19,
+            "long": 74,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "045de36f-e596-4e24-86f3-4f0d7ba80570",
+                    "date": "11-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 118561,
+            "name": "Taklibhan PHC",
+            "address": "Taklibhan",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Shrirampur",
+            "pincode": 413725,
+            "lat": 0,
+            "long": 0,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "1d6f7dea-a349-49bb-8df2-90c79381544d",
+                    "date": "12-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                },
+                {
+                    "session_id": "34f8aac2-b2f4-4956-af64-31c5cb08b2c1",
+                    "date": "14-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        },
+        {
+            "center_id": 15704,
+            "name": "Bota PHC",
+            "address": "Bota Village",
+            "state_name": "Maharashtra",
+            "district_name": "Ahmednagar",
+            "block_name": "Sangamner",
+            "pincode": 422602,
+            "lat": 19,
+            "long": 47,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "45056623-124d-4a41-9504-4340389d3b3b",
+                    "date": "14-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ]
+                }
+            ]
+        }
+    ]
+}

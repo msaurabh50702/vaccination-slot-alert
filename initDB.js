@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config()
 
-mongoose.connect(process.env.db  || 'mongodb://localhost:27017/cowin_bot', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.db  || 'mongodb://localhost:27017/cowin_bot', {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false });
 
 
 const db = mongoose.connection;

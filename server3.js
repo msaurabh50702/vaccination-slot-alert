@@ -8,7 +8,7 @@ const tunnel = require('tunnel');
 
 require("dotenv").config()
 
-const bot = new TelegramBot(process.env.tokens, {polling: true});
+const bot = new TelegramBot(process.env.tokens2, {polling: true});
 const app = express()
 const db = require("./initDB")
 const { user,appn } = require("./schema");
@@ -20,8 +20,16 @@ app.use(bodyParser.json())
 
 const states = require("./states.json")
 let users = {}
-let zip = ['423109','423601']
+let zip = ['423109','423601', '423607']
 let ListOfDistricts = ['Ahmednagar']
+
+let max_err_cnt = 4
+let cr_err_cnt = 0
+let cr_host = process.env.PROXY_HOST
+let cr_port = process.env.PROXY_PORT
+
+let b_host = "14.140.31.28"
+let b_port = 3128
 
 
 async function fetchData(url) {
@@ -54,8 +62,8 @@ async function fetchData(url) {
 async function fetchData1(url) {
     const agent = tunnel.httpsOverHttp({
         proxy: {
-            host: process.env.PROXY_HOST,
-            port: process.env.PROXY_PORT,
+            host: cr_host,
+            port: cr_port,
         },
     });
     return axios.get(url,{ headers: { 
@@ -130,6 +138,31 @@ const getDist = (stat)=>{
     return dst;
 }
 
+const updateZipArray = (opn) =>{
+    if(opn.operation == "Add"){
+        zip.indexOf(opn.code) === -1 && zip.push(opn.code);
+    }
+    else if(opn.operation == "Del"){
+        var index = zip.indexOf(opn.code);
+        if (index !== -1) {
+            zip.splice(index, 1);
+        }
+    }
+    console.log("Zip : "+zip)
+}
+const updateDisAppay = (opn)=>{
+    if(opn.operation == "Add"){
+        ListOfDistricts.indexOf(opn.code) === -1 && ListOfDistricts.push(opn.code);
+    }
+    else if(opn.operation == "Del"){
+        var index = ListOfDistricts.indexOf(opn.code);
+        if (index !== -1) {
+            ListOfDistricts.splice(index, 1);
+        }
+    }
+    console.log("Dist : "+ListOfDistricts)
+}
+
 const slotBooked = (c_id,pin,msg_id) =>{
     user.findOne({chat_id:c_id}).then(doc => {
         if(doc == null) throw "Unauthorised Access"
@@ -192,132 +225,208 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
 });
 
 bot.onText(/\/start/, async (msg, match) => {
-    bot.sendMessage(process.env.MY_CHAT_ID,"Access Requested By :- "+msg.chat.first_name+" "+msg.chat.last_name)
-    code = await askQuestion(msg.chat.id, 'Enter Your Invitation Code :')
-    if(code['text'] === "Sam4989" ){
-        let col = new user({
-            name: msg.chat.first_name,
-            state : "",
-            district : "",
-            chat_id: msg.chat.id,
-            paused: 0,
-            pin:{},
-            accVerified:1
-        })
-        let resp = null;
-        col.save(async(err,data)=>{
-            if(await err){
-                console.log("DB ERROR",err)
-                resp = "Something went wrong";
-                bot.sendMessage(msg.chat.id, resp);
-            } 
+    user.find().then(data => {console.log(data)})
+    user.findOne({chat_id:msg.chat.id},async (err,data)=>{
+        try{
+            if(err) throw err;
             else{
-                 resp = "Hello "+msg.chat.first_name+",\n\nI am cowin_slot_tracker, I can track 'Vaccination Slot Availability' in your area once it is available i will notify you...!\n\nPlease use \/help to know more"; 
-                 bot.sendMessage(msg.chat.id, resp).then(()=>{
-                    const keyboard = Keyboard.make(getStates(), {
-                        pattern: [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-                    }).inline()
-                    bot.sendMessage(msg.chat.id,"Please Select Your State",keyboard).then( data =>{
-                        console.log("data")
-                    })
-                 });
+                if(data == null){
+                    //bot.sendMessage(process.env.MY_CHAT_ID,"Access Requested By :- "+msg.chat.first_name+" "+msg.chat.last_name)
+                    code = await askQuestion(msg.chat.id, 'Enter Your Invitation Code :')
+                    if(code['text'] === process.env.invi){
+                        let col = new user({
+                            name: msg.chat.first_name,
+                            state : "",
+                            district : "",
+                            chat_id: msg.chat.id,
+                            paused: 0,
+                            pin:{},
+                            accVerified:1
+                        })
+                        let resp = null;
+                        col.save(async(err,data)=>{
+                            if(await err){
+                                console.log("DB ERROR",err)
+                                resp = "Something went wrong";
+                                bot.sendMessage(msg.chat.id, resp);
+                            } 
+                            else{
+                                resp = "Hello "+msg.chat.first_name+",\n\nI am cowin_slot_tracker, I can track 'Vaccination Slot Availability' in your area once it is available i will notify you...!\n\nPlease use \/help to know more"; 
+                                bot.sendMessage(msg.chat.id, resp).then(()=>{
+                                    const keyboard = Keyboard.make(getStates(), {
+                                        pattern: [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                                    }).inline()
+                                    bot.sendMessage(msg.chat.id,"Please Select Your State",keyboard)
+                                });
+                            }
+                        });
+                    }
+                    else{
+                        bot.sendMessage(msg.chat.id,"Invalid Invitation Code : ")
+                    } 
+                }
+                else{
+                    resp = "Welcome Back "+msg.chat.first_name+",\n\nI am cowin_slot_tracker, I can track 'Vaccination Slot Availability' in your area once it is available i will notify you...!\n\nPlease use \/help to know more"; 
+                    bot.sendMessage(msg.chat.id,resp)
+                }
             }
-        });
-    }
-    else{
-        bot.sendMessage(msg.chat.id,"Invalid Invitation Code : ")
-    } 
+        }catch(e){
+            console.log("Error in /Start -> ",err)
+        }
+    })
+    
 });
 
 bot.onText(/\/setTracker/,async (msg,match)=>{
     let name,age,pin;
-    pin = await askQuestion(msg.chat.id, 'Enter Your Pincode')
-    name = await askQuestion(msg.chat.id, 'Enter Name')
-    age = await askQuestion(msg.chat.id, 'Enter age')
-
-    data = { 
-        a_name:name['text'],
-        a_age:age['text'], 
-        vaccinated:0, 
-        pin:pin['text']
-    }
-    user.findOne({chat_id:msg.chat.id}).then(doc => {
+    user.findOne({chat_id:msg.chat.id}).then(async (doc) => {
         if(doc == null) throw "Unauthorised Access"
         else{
+            pin = await askQuestion(msg.chat.id, 'Enter Your Pincode')
+            name = await askQuestion(msg.chat.id, 'Enter Name')
+            age = await askQuestion(msg.chat.id, 'Enter age')
+
+            data = { 
+                a_name:name['text'],
+                a_age:age['text'], 
+                pin:pin['text'],
+                vaccinated:0
+            }
+            doc['appl'].forEach(element => {
+                if(element.a_age <= age['text'] && element.pin == pin['text'])
+                    throw "Duplicate Found"
+            });
             item = doc['appl'].push(data);
             doc.save();  
-            ms = "<b>Name : </b>"+ name['text']+"\n<b>Age : </b>"+age['text']+"\n<b>Pincode : </b>"+pin['text'];     
+            ms = "<b>    Name : </b>"+ name['text']+"\n<b>    Age : </b>"+age['text']+"\n<b>    Pincode : </b>"+pin['text'];     
             bot.sendMessage(msg.chat.id,"Hey, "+doc['name']+'\nI got your request and now you will get message once slot available \n\n<b>Details : </b>\n'+ms,{parse_mode : "HTML"})
-            zip.indexOf(pin['text']) === -1 && zip.push(pin['text']);
-            ListOfDistricts.indexOf(doc['district']) === -1 && ListOfDistricts.push(doc['district']);
-            console.log(ListOfDistricts)
+            updateZipArray({operation:"Add",code:pin['text']})
+            updateDisAppay({operation:"Add",code:doc['district']})
         }
     }).catch(err => {
-        console.log('Oh! Dark'+err)
+        console.log('Oh! Dark '+err)
         if(err === "Unauthorised Access")
             bot.sendMessage(msg.chat.id,"Invalid Invitation code")
+        else if(err == "Duplicate Found")
+            bot.sendMessage(msg.chat.id,"You Have Already set Tracker on same pincode and age group")
         else
-            bot.sendMessage("Something went wrong\n<b>Can't set your Tracker</b>",{parse_mode:"HTML"})
+            bot.sendMessage(msg.chat.id,"Something went wrong\n<b>Can't set your Tracker</b>",{parse_mode:"HTML"})
     });
 })
 
+
 bot.onText(/\/delTracker/,async (msg,match)=>{
     let name,age,pin;
-    pin = await askQuestion(msg.chat.id, 'Enter Your Pincode')
-    user.findOne({chat_id:msg.chat.id}).then(doc => {
+    user.findOne({chat_id:msg.chat.id}).then(async(doc) => {
         if(doc == null) throw "Unauthorised Access"
         else{
-            doc['appl'] = deleteObj(doc['appl'], 'pin', Number(pin['text']));
+            pin = await askQuestion(msg.chat.id, 'Enter Your Pincode')
+            res = deleteObj(doc['appl'], 'pin', Number(pin['text']));
+            if(res == null) throw "Invalid Pincode"
+            doc['appl'] = res
             doc.save().then(data =>{
                 user.findOne({'appl.pin':Number(pin['text'])}).then(rem =>{
                     if(rem == null){
-                        var index = zip.indexOf(pin['text']);
-                        if (index !== -1) {
-                            zip.splice(index, 1);
+                        updateZipArray({operation:"Del",code:pin['text']})
+                    }
+                })
+                user.findOne({'district':doc['district']}).then(rem =>{
+                    if(rem == null){
+                        updateDisAppay({operation:"Del",code:doc['district']})
+                    }
+                    else{
+                        try{
+                            flag = 0
+                            if((rem.appl).length != 0) flag = 1
+                            if(flag == 0)
+                                updateDisAppay({operation:"Del",code:doc['district']})
+                        }catch(err){
+                            console.log("Error while Updating Display Array -> "+err)
                         }
                     }
                 })
             });      
             bot.sendMessage(msg.chat.id,"Untrack Successfull..!\n<b>Pincode : </b>"+pin['text'],{parse_mode : "HTML"})
-            zip.indexOf(pin['text']) === -1 && zip.push(pin['text']);
+            //zip.indexOf(pin['text']) === -1 && zip.push(pin['text']);
         }
     }).catch(err => {
-        console.log('Oh! Dark'+err)
+        console.log('Oh! Dark '+err)
         if(err === "Unauthorised Access")
             bot.sendMessage(msg.chat.id,"Invalid Invitation code")
+        else if(err === "Invalid Pincode")
+            bot.sendMessage(msg.chat.id,"Can't find tracker on <b>"+pin['text']+"</b>",{parse_mode:"HTML"})
         else
-            bot.sendMessage("Something went wrong\n<b>Can't set your Tracker</b>",{parse_mode:"HTML"})
+            bot.sendMessage(msg.chat.id,"Something went wrong\n<b>Can't set your Tracker</b>",{parse_mode:"HTML"})
     });
 })
+
 
 bot.onText(/\/getDetails/,(msg,match)=>{
     user.findOne({chat_id:msg.chat.id}).then(doc => {
         if(doc == null) throw "Unauthorised Access"
         else{
             //console.log(doc['appl'])
-            let st = "Your Available Trackers are : \n";
+            let st = "<b>Account Details : </b>\n    Name : "+doc['name']+"\n    State : "+doc['state']+"\n    District : "+doc['district']+"\n\n"
+            st += "<i><b>Your Available Trackers are : </b></i>";
             doc['appl'].forEach((element,ind) => {
                 i = ind+1
                 st += "\n   "+i+"]  <b>"+element["a_name"]+"</b> | "+element["a_age"]+" | <b>"+element["pin"]+"</b>"
             });
+            st += "\n\nAlerts Paused : "+(doc['paused']?"✅":"❌")
             bot.sendMessage(msg.chat.id,st,{parse_mode:"HTML"})
         }
     }).catch(err => {
-        console.log('Oh! Dark'+err)
+        console.log('Oh! Dark '+err)
         if(err === "Unauthorised Access")
             bot.sendMessage(msg.chat.id,"Invalid Invitation code")
         else
-            bot.sendMessage("Something went wrong\n<b>Can't Fetch your Tracker's</b>",{parse_mode:"HTML"})
+            bot.sendMessage(msg.chat.id,"Something went wrong\n<b>Can't Fetch your Tracker's</b>",{parse_mode:"HTML"})
     });
 })
 
-
-
-bot.onText(/\/help/, (msg, match) => {
-    const resp = "\/setTracker - To Add Tracker to your pin code \n/delTracker - To remove pincode from tracking system\n\/getDetails - To get slots details of your area\n\/pause - To pause slots notifiactions\n\/resume - To resume slots notifications";
-    bot.sendMessage(msg.chat.id, resp);
+bot.onText(/\/changeDis/,(msg,match)=>{
+    user.findOne({chat_id:msg.chat.id}).then(doc => {
+        if(doc == null) throw "Unauthorised Access"
+        else{
+            const keyboard = Keyboard.make(getStates(), {
+                pattern: [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+            }).inline()
+            bot.sendMessage(msg.chat.id,"Please Select Your State",keyboard)
+        }
+    }).catch(err => {
+        console.log('Oh! Dark '+err)
+        if(err === "Unauthorised Access")
+            bot.sendMessage(msg.chat.id,"Invalid Invitation code")
+        else
+            bot.sendMessage(msg.chat.id,"Something went wrong\n<b>Can't Fetch your Tracker's</b>",{parse_mode:"HTML"})
+    })
 });
 
+bot.onText(/\/help/, (msg, match) => {
+    const resp = "\/setTracker - To Add Tracker to your pin code \n/delTracker - To remove pincode from tracking system\n\/getDetails - To get slots details of your area\n\/pause - To pause slots notifiactions\n\/resume - To resume slots notifications\n\/changeDis - To update your District";
+    bot.sendMessage(msg.chat.id, resp,{parse_mode:"HTML"});
+});
+
+bot.onText(/\/setProxy/,async(msg,mt)=>{
+    if(msg.chat.id == process.env.MY_CHAT_ID){
+        bot.sendMessage(msg.chat.id,"Your Current Proxy is : <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
+        proxy = await askQuestion(msg.chat.id,"Enter New Proxy")
+        bot.sendMessage(msg.chat.id,"Proxy Server Shifted from : <code>"+cr_host+":"+cr_port+"</code> -> <code>"+proxy['text']+"</code>",{parse_mode:"HTML"})
+        proxy = proxy['text'].split(":")
+        cr_host = proxy[0]
+        cr_port = Number(proxy[1])
+    }
+})
+bot.onText(/\/setBProxy/,async(msg,mt)=>{
+    if(msg.chat.id == process.env.MY_CHAT_ID){
+        bot.sendMessage(msg.chat.id,"Your Current Backup Proxy is : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
+        proxy = await askQuestion(msg.chat.id,"Enter New Proxy")
+        bot.sendMessage(msg.chat.id,"Now Backup Proxy set to : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
+        proxy = proxy['text'].split(":")
+        b_host = proxy[0]
+        b_port = Number(proxy[1])
+    }
+})
 
 /*
 setInterval(() => {
@@ -384,22 +493,24 @@ setInterval(() => {
     ListOfDistricts.forEach(district=>{
         did = getIdByKey(district)
         fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
+            console.log("Connected : "+cr_host+":"+cr_port)
             data['data'].centers.forEach(center =>{
                 if(zip.indexOf(String(center.pincode)) != -1){
                     try{
                         center.sessions.forEach(session =>{
                             if(session.available_capacity > 0){
-                                //console.log(center)
                                 user.findOne({'appl.pin':Number(center.pincode), "appl.a_age"  : {$gte : session.min_age_limit} },function (err, data) {
                                     if (err) return handleError(err);
                                     else{
                                         try{
                                             if(data == null) throw "No Data Found"
-                                            msg = "<b>SLOT AVAILABLE...! ✅</b>\n\n<b>Name : </b>"+center.name+"\n<b>Pincode : </b>"+center.pincode+"\n<b>Fee Type : </b>"+center.fee_type+"\n\n<b>Available Slots : </b>\n<b>    Date : </b><strong>"+session.date+"</strong>\n<b>    Remaining Slots : </b>"+session.available_capacity+"\n<b>    vaccine : </b>"+session.vaccine
+                                            msg = "<b>SLOT AVAILABLE...! ✅</b>\n\n<b>Name : </b>"+center.name+"\n<b>Pincode : </b>"+center.pincode+"\n<b>Fee Type : </b>"+center.fee_type+"\n\n<b>Available Slots : </b>\n<b>    Date : </b><strong>"+session.date+"</strong>\n<b>    Remaining Slots : </b>"+session.available_capacity+"\n<b>    vaccine : </b>"+session.vaccine+"\n    <b>Age Limit : </b>"
                                             //msg += "\n\n/pause - to Pause Messages command \n\n/delTracker - to Remove Tracker on Pincode"
                                             msg += "\n\n<strong>Stay Home, Stay Safe..!  😷</strong>"
                                             const keyboard2 = Keyboard.inline([Key.callback('Booked 👍',"Booked:"+center.pincode),'Not Booked 👎' ])
-                                            bot.sendMessage(data.chat_id,msg,{reply_markup:keyboard2["reply_markup"],parse_mode:"HTML"})
+                                            bot.sendMessage(data.chat_id,msg,{reply_markup:keyboard2["reply_markup"],parse_mode:"HTML"}).catch(err => {
+                                                console.log("Message Sending Skipped -> "+err)
+                                            })
                                         }catch(ex){
                                             console.log("Error "+ex)
                                         }
@@ -408,18 +519,31 @@ setInterval(() => {
                             }
                         })
                     }catch(err){
-                        bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>")
+                        bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>",{parse_mode:"HTML"})
                         console.log("Error -> "+err)
                     }
                 }
             })
         }).catch((err)=>{
-            bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>")
+            cr_err_cnt += 1
+            if(cr_err_cnt == max_err_cnt){
+                if(cr_host != b_host){
+                    t_host = cr_host
+                    t_port = cr_port
+                    cr_host = b_host
+                    cr_port = b_port
+                    b_port = t_port
+                    b_host = t_host
+                    bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Server Shifted from : <code>"+b_host+":"+b_port+"</code> -> <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
+                }
+                cr_err_cnt = 0
+            }
+            bot.sendMessage(process.env.MY_CHAT_ID,"Error -> <code>"+err+"</code>",{parse_mode:"HTML"})
             console.log("Time Out -> "+err)
         })
 
     })
-}, 1000*60*2);
+}, 10000*60*1);
 
 
 app.get("/",(req,res)=>{
