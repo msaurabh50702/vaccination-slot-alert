@@ -560,6 +560,36 @@ app.listen(process.env.PORT,()=>{
 })
 
 */
+hind = 0
+hsts = ['13.127.74.133:80','117.196.230.16:8080',"115.243.184.76:23500"]
+
+bot.onText(/\/pushIP/,async(msg,mt)=>{
+    if(msg.chat.id == process.env.MY_CHAT_ID){
+        lst =""
+        proxy = await askQuestion(msg.chat.id,"Enter New Proxy")
+        hsts.push(proxy['text'])
+        hsts.forEach((ip) =>{lst += "<code>"+ip+"</code>\n"})
+        bot.sendMessage(process.env.MY_CHAT_ID,"IP Pushed \n"+lst)
+    }
+})
+bot.onText(/\/popIP/,async(msg,mt)=>{
+    if(msg.chat.id == process.env.MY_CHAT_ID){
+        
+    }
+})
+
+
+const rotateIP = () => {
+    hind += 1
+    if(hind == hsts.length)
+        hind = 0
+    else{
+        console.log("IP Shifted From "+cr_host+":"+cr_port+" -> "+hsts[hind])
+        cr_host = hsts[hind].split(":")[0]
+        cr_host = hsts[hind].split(":")[1]
+    }
+}
+
 
 setInterval(() => {
     d = new Date().toJSON().slice(0,10).split("-")
@@ -617,6 +647,11 @@ setInterval(() => {
                 })
             }
         }).catch(error =>{
+            cr_err_cnt += 1
+            if(cr_err_cnt == max_err_cnt){
+                cr_err_cnt = 0
+                rotateIP()
+            }
             console.log("Data Fetching Error -> "+error)
         });
     
