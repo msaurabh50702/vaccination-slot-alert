@@ -680,3 +680,12 @@ setInterval(() => {
     
     })
 }, 60*1000*(Number(process.env.ref_tm)));
+
+app.get("/",(req,res)=>{
+    res.send("Please Use Telegram Bot")
+})
+
+
+app.listen(process.env.PORT,()=>{
+    console.log("Server Running")
+})
