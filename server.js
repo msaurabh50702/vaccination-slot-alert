@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 const states = require("./states.json")
 let users = {}
 let zip = ['423109','423601', '423607']
-let ListOfDistricts = ['Ahmednagar']
+let ListOfDistricts = ['Ahmednagar',"Mumbai"]
 
 let max_err_cnt = 4
 let cr_err_cnt = 0
@@ -69,6 +69,7 @@ async function fetchData1(url) {
                                 'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
                              },
                              httpsAgent: agent,
+                             timeout:1000
                     })
 }
 
@@ -408,7 +409,7 @@ bot.onText(/\/help/, (msg, match) => {
 
 bot.onText(/\/setProxy/,async(msg,mt)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
-        bot.sendMessage(msg.chat.id,"Your Current Proxy is : <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
+        bot.sendMessage(msg.chat.id,"Current Proxy : <code>"+cr_host+":"+cr_port+"</code>\nBackup Proxy : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
         proxy = await askQuestion(msg.chat.id,"Enter New Proxy")
         bot.sendMessage(msg.chat.id,"Proxy Server Shifted from : <code>"+cr_host+":"+cr_port+"</code> -> <code>"+proxy['text']+"</code>",{parse_mode:"HTML"})
         proxy = proxy['text'].split(":")
@@ -424,6 +425,7 @@ bot.onText(/\/setBProxy/,async(msg,mt)=>{
         proxy = proxy['text'].split(":")
         b_host = proxy[0]
         b_port = Number(proxy[1])
+        bot.sendMessage(msg.chat.id,"Now Backup Proxy set to : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
     }
 })
 
@@ -486,6 +488,7 @@ fetchData('https://cdn-api.co-vin.in/api/v2/admin/location/states').then(data =>
 
 */
 
+/*
 setInterval(() => {
     d = new Date().toJSON().slice(0,10).split("-")
     d = d[2]+"-"+d[1]+"-"+d[0]
@@ -498,17 +501,19 @@ setInterval(() => {
                     try{
                         center.sessions.forEach(session =>{
                             if(session.available_capacity > 0){
-                                user.findOne({'appl.pin':Number(center.pincode), "appl.a_age"  : {$gte : session.min_age_limit} },function (err, data) {
+                                user.find({'appl.pin':Number(center.pincode), "appl.a_age"  : {$gte : session.min_age_limit}, paused:0 },function (err, data) {
                                     if (err) return handleError(err);
                                     else{
                                         try{
                                             if(data == null) throw "No Data Found"
-                                            msg = "<b>SLOT AVAILABLE...! ✅</b>\n\n<b>Name : </b>"+center.name+"\n<b>Pincode : </b>"+center.pincode+"\n<b>Fee Type : </b>"+center.fee_type+"\n\n<b>Available Slots : </b>\n<b>    Date : </b><strong>"+session.date+"</strong>\n<b>    Remaining Slots : </b>"+session.available_capacity+"\n<b>    vaccine : </b>"+session.vaccine+"\n    <b>Age Limit : </b>"
-                                            //msg += "\n\n/pause - to Pause Messages command \n\n/delTracker - to Remove Tracker on Pincode"
-                                            msg += "\n\n<strong>Stay Home, Stay Safe..!  😷</strong>"
-                                            const keyboard2 = Keyboard.inline([Key.callback('Booked 👍',"Booked:"+center.pincode),'Not Booked 👎' ])
-                                            bot.sendMessage(data.chat_id,msg,{reply_markup:keyboard2["reply_markup"],parse_mode:"HTML"}).catch(err => {
-                                                console.log("Message Sending Skipped -> "+err)
+                                            data.forEach(user =>{
+                                                msg = "<b>SLOT AVAILABLE...! ✅</b>\n\n<b>Name : </b>"+center.name+"\n<b>Pincode : </b>"+center.pincode+"\n<b>Fee Type : </b>"+center.fee_type+"\n\n<b>Available Slots : </b>\n<b>    Date : </b><strong>"+session.date+"</strong>\n<b>    Remaining Slots : </b>"+session.available_capacity+"\n<b>    vaccine : </b>"+session.vaccine+"\n    <b>Age Limit : </b>"+session.min_age_limit+"+"
+                                                //msg += "\n\n/pause - to Pause Messages command \n\n/delTracker - to Remove Tracker on Pincode"
+                                                msg += "\n\n<strong>Stay Home, Stay Safe..!  😷</strong>"
+                                                const keyboard2 = Keyboard.inline([Key.callback('Booked 👍',"Booked:"+center.pincode),'Not Booked 👎' ])
+                                                bot.sendMessage(user.chat_id,msg,{reply_markup:keyboard2["reply_markup"],parse_mode:"HTML"}).catch(err => {
+                                                    console.log("Message Sending Skipped -> "+err)
+                                                })
                                             })
                                         }catch(ex){
                                             console.log("Error "+ex)
@@ -553,3 +558,67 @@ app.get("/",(req,res)=>{
 app.listen(process.env.PORT,()=>{
     console.log("Server Running")
 })
+
+*/
+
+setInterval(() => {
+    d = new Date().toJSON().slice(0,10).split("-")
+    d = d[2]+"-"+d[1]+"-"+d[0]
+    ListOfDistricts.forEach(district=>{
+        did = getIdByKey(district)
+        fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
+            console.log("Connected : "+cr_host+":"+cr_port+" => "+district)
+            centers = data['data'].centers.filter((center)=> {
+                if(zip.indexOf(String(center.pincode)) !== -1){
+                    str = ""
+                    session = center['sessions'].filter((ssn)=>{
+                        if(ssn.available_capacity > 0){ // Change This for Befour Deployment
+                            str = "<strong>  Date : "+ssn.date+"</strong>\n<b>    Remaining Slots : </b>"+ssn.available_capacity+"\n<b>    vaccine : </b>"+ssn.vaccine+"\n    <b>Age Limit : </b>"+ssn.min_age_limit+"+\n\n"
+                            return ssn
+                        }
+                    })
+                    if(session.length > 0){
+                        center['sessions'] = session
+                        center['session_msg'] = str
+                        return center
+                    }
+                } 
+            })
+
+            if(centers.length > 0){
+                console.log(centers[0]['district_name'])
+                user.find({district:String(centers[0]['district_name'])},(err,dbdata) => {
+                    try{
+                        if(err) throw "Database Error : "+err
+                        else if(dbdata == null && dbdata.length == 0) throw "No Data with "+centers['district_name']
+                        else{
+                            dbdata.forEach(usr => {
+                                usr['appl'].filter(appl=>{
+                                    cn = centers.filter(cntr=> { if(cntr.pincode == Number(appl.pin)) return cntr })
+                                    if(cn.length > 0){
+                                        cn.forEach(cntr => {
+                                            msg = "<b>SLOT AVAILABLE...! ✅</b>\n\n<b>Name : </b>"+cntr.name+"\n<b>Pincode : </b>"+cntr.pincode+"\n<b>Fee Type : </b>"+cntr.fee_type+"\n\n<b>Available Slots : </b>\n"
+                                            //msg += "\n\n/pause - to Pause Messages command \n\n/delTracker - to Remove Tracker on Pincode"
+                                            msg += cntr['session_msg']
+                                            msg += "\n\n<strong>Stay Home, Stay Safe..!  😷</strong>"
+                                            const keyboard2 = Keyboard.inline([Key.callback('Booked 👍',"Booked:"+cntr.pincode),'Not Booked 👎' ])
+                                            bot.sendMessage(usr.chat_id,msg,{reply_markup:keyboard2["reply_markup"],parse_mode:"HTML"}).catch(err => {
+                                                console.log("Message Sending Skipped -> "+err)
+                                            })
+                                        })
+                                    }
+                                })
+                            })
+                        }
+
+                    }catch(dberr){
+                        console.log("DB Error -> "+dberr)
+                    }      
+                })
+            }
+        }).catch(error =>{
+            console.log("Data Fetching Error -> "+error)
+        });
+    
+    })
+}, 3000);
