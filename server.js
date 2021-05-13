@@ -20,8 +20,8 @@ app.use(bodyParser.json())
 
 const states = require("./states.json")
 let users = {}
-let zip = ['423109','423601', '423607']
-let ListOfDistricts = ['Ahmednagar',"Mumbai"]
+let zip = ["423109","423601","423107"]
+let ListOfDistricts = ["Maharashtra"]
 
 let max_err_cnt = 4
 let cr_err_cnt = 0
@@ -31,6 +31,9 @@ let cr_port = process.env.PROXY_PORT
 let b_host = "14.140.31.28"
 let b_port = 3128
 
+
+hind = -1
+hsts = ['13.127.74.133:80','117.196.230.16:8080',"115.243.184.76:23500",String(b_host+":"+b_port)]
 
 async function fetchData(url) {
     return new Promise((resolve, reject) => {
@@ -218,6 +221,16 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
         if(callbackQuery.data.split(":")[0]=="Booked"){
             slotBooked(callbackQuery.from.id,callbackQuery.data.split(":")[1],callbackQuery.message.message_id)
             console.log("Slot Booked")
+        }
+        else if(callbackQuery.message.text == 'Select IP To POP'){
+            bot.deleteMessage(callbackQuery.from.id,callbackQuery.message.message_id)
+            var index = hsts.indexOf(callbackQuery.data);
+            if (index !== -1) {
+                hsts.splice(index, 1);
+            } 
+            msg = "List op Proxy's : \n"
+            hsts.forEach(ips => { msg += "<code>"+ips+"</code>\n" })
+            bot.sendMessage(process.env.MY_CHAT_ID,msg,{parse_mode:"HTML"})
         }
         else
             console.log(callbackQuery)
@@ -560,8 +573,6 @@ app.listen(process.env.PORT,()=>{
 })
 
 */
-hind = 0
-hsts = ['13.127.74.133:80','117.196.230.16:8080',"115.243.184.76:23500"]
 
 bot.onText(/\/pushIP/,async(msg,mt)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
@@ -569,11 +580,19 @@ bot.onText(/\/pushIP/,async(msg,mt)=>{
         proxy = await askQuestion(msg.chat.id,"Enter New Proxy")
         hsts.push(proxy['text'])
         hsts.forEach((ip) =>{lst += "<code>"+ip+"</code>\n"})
-        bot.sendMessage(process.env.MY_CHAT_ID,"IP Pushed \n"+lst)
+        bot.sendMessage(process.env.MY_CHAT_ID,"IP Pushed \n"+lst,{parse_mode:"HTML"})
     }
 })
 bot.onText(/\/popIP/,async(msg,mt)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
+        if(msg.chat.id == process.env.MY_CHAT_ID){
+            lst = []
+            hsts.forEach(ip=>{lst.push(Key.callback(ip,ip))})
+            const keyboard1 = Keyboard.make(lst, {
+                pattern: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+            }).inline()
+            bot.sendMessage(process.env.MY_CHAT_ID,"Select IP To POP",keyboard1)
+        }
         
     }
 })
@@ -582,11 +601,11 @@ bot.onText(/\/popIP/,async(msg,mt)=>{
 const rotateIP = () => {
     hind += 1
     if(hind == hsts.length)
-        hind = 0
+        hind = -1
     else{
         console.log("IP Shifted From "+cr_host+":"+cr_port+" -> "+hsts[hind])
         cr_host = hsts[hind].split(":")[0]
-        cr_host = hsts[hind].split(":")[1]
+        cr_port = hsts[hind].split(":")[1]
     }
 }
 
@@ -597,13 +616,17 @@ setInterval(() => {
     ListOfDistricts.forEach(district=>{
         did = getIdByKey(district)
         fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
+            //cr_err_cnt = 0
+            cr_host = cr_host
+            cr_port = cr_port
+
             console.log("Connected : "+cr_host+":"+cr_port+" => "+district)
             centers = data['data'].centers.filter((center)=> {
                 if(zip.indexOf(String(center.pincode)) !== -1){
                     str = ""
-                    session = center['sessions'].filter((ssn)=>{
+                    session = center['sessions'].filter((ssn,ind)=>{
                         if(ssn.available_capacity > 0){ // Change This for Befour Deployment
-                            str = "<strong>  Date : "+ssn.date+"</strong>\n<b>    Remaining Slots : </b>"+ssn.available_capacity+"\n<b>    vaccine : </b>"+ssn.vaccine+"\n    <b>Age Limit : </b>"+ssn.min_age_limit+"+\n\n"
+                            str += "<strong>  Date : "+ssn.date+"</strong>\n<b>      Remaining Slots : </b>"+ssn.available_capacity+"\n<b>      vaccine : </b>"+ssn.vaccine+"\n      <b>Age Limit : </b>"+ssn.min_age_limit+"+\n\n"
                             return ssn
                         }
                     })
@@ -656,4 +679,4 @@ setInterval(() => {
         });
     
     })
-}, 3000);
+}, 60*1000*(Number(process.env.ref_tm)));
