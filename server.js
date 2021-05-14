@@ -19,9 +19,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const states = require("./states.json")
-let users = {}
-let zip = ["423109","423601","423107"]
-let ListOfDistricts = ["Ahmednagar"]
+
+data = require("./data.json")
+let zip = data['listOfzip']
+let ListOfDistricts = data['dis']
 
 let max_err_cnt = 2
 let cr_err_cnt = 0
@@ -172,21 +173,19 @@ const slotBooked = (c_id,pin,msg_id) =>{
         else{
             doc['appl'] = deleteObj(doc['appl'], 'pin', Number(pin));
             doc.save().then(data =>{
-                user.findOne({'appl.pin':Number(pin)}).then(rem =>{
-                    if(rem == null){
-                        var index = zip.indexOf(pin);
-                        if (index !== -1) {
-                            zip.splice(index, 1);
-                        }
+                user.find({'appl.pin':Number(pin)}).then(rem =>{
+                    if(rem == null || rem.length == 0){
+                        updateZipArray({operation:"Del",code:pin})
+                        updateDisAppay({operation:"Del",code:data['district']})
                     }
                 })
             });      
-            bot.sendMessage(c_id,"Now <strong>"+pin+"</strong> Removed from your Tracking List",{parse_mode : "HTML"}).then(()=>{
+            bot.sendMessage(c_id,"<b>Congratulations...!</b> \n\n <i>As you have Booked slot, I removed tracker from <strong>"+pin+"</strong>. If you want to track it again use /setTracker ]Command</i>",{parse_mode : "HTML"}).then(()=>{
                // bot.editMessageReplyMarkup(msg_id,{reply_markup:null})
                 //bot.editMessageReplyMarkup("hello",{message_id:msg_id,chat_id:c_id,reply_markup:{remove_keyboard:true}})
                 bot.deleteMessage(c_id,msg_id)
             })
-            zip.indexOf(pin) === -1 && zip.push(pin);
+            //zip.indexOf(pin) === -1 && zip.push(pin);
         }
     }).catch(err => {
         console.log('Oh! Dark'+err)
@@ -212,7 +211,7 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
     }
     else if(callbackQuery.message.text == 'Please Select Your District'){
         bot.deleteMessage(callbackQuery.from.id,callbackQuery.message.message_id)
-        bot.sendMessage(callbackQuery.from.id,"You Selected : <b>"+callbackQuery.data+"</b>",{parse_mode:"HTML"})
+        bot.sendMessage(callbackQuery.from.id,"Now you can /setTracker on pincode which belongs to  <b>"+callbackQuery.data+"</b> District",{parse_mode:"HTML"})
         user.findOneAndUpdate({chat_id:callbackQuery.from.id}, {district:callbackQuery.data}, function(err, doc) {
             if (err) console.log("District Updation Failed");
         });
@@ -335,31 +334,18 @@ bot.onText(/\/delTracker/,async (msg,match)=>{
         else{
             pin = await askQuestion(msg.chat.id, 'Enter Your Pincode')
             res = deleteObj(doc['appl'], 'pin', Number(pin['text']));
+            console.log(res)
             if(res == null) throw "Invalid Pincode"
             doc['appl'] = res
             doc.save().then(data =>{
-                user.findOne({'appl.pin':Number(pin['text'])}).then(rem =>{
-                    if(rem == null){
+                user.find({'appl.pin':Number(pin['text'])}).then(rem =>{
+                    if(rem == null || rem.length == 0){
                         updateZipArray({operation:"Del",code:pin['text']})
-                    }
-                })
-                user.findOne({'district':doc['district']}).then(rem =>{
-                    if(rem == null){
-                        updateDisAppay({operation:"Del",code:doc['district']})
-                    }
-                    else{
-                        try{
-                            flag = 0
-                            if((rem.appl).length != 0) flag = 1
-                            if(flag == 0)
-                                updateDisAppay({operation:"Del",code:doc['district']})
-                        }catch(err){
-                            console.log("Error while Updating Display Array -> "+err)
-                        }
+                        updateDisAppay({operation:"Del",code:data['district']})
                     }
                 })
             });      
-            bot.sendMessage(msg.chat.id,"Untrack Successfull..!\n<b>Pincode : </b>"+pin['text'],{parse_mode : "HTML"})
+            bot.sendMessage(msg.chat.id,"<b>Tracker Removed..!\n</b><i>I removed tracker from <strong>"+pin['text']+"</strong>. If you want to track it again use  /setTracker Command</i>",{parse_mode : "HTML"})
             //zip.indexOf(pin['text']) === -1 && zip.push(pin['text']);
         }
     }).catch(err => {
@@ -573,6 +559,11 @@ app.listen(process.env.PORT,()=>{
 })
 
 */
+bot.onText(/\/status/,(msg,mt)=>{
+    if(msg.chat.id == process.env.MY_CHAT_ID){
+        bot.sendMessage(process.env.MY_CHAT_ID,"<b>Pincodes : </b><code>"+zip.toString()+"</code>\n\n<b>District : </b>"+ListOfDistricts.toString(),{parse_mode:"HTML"})
+    }
+})
 
 bot.onText(/\/pushIP/,async(msg,mt)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
@@ -610,6 +601,8 @@ const rotateIP = () => {
 }
 
 
+let ipdowncnt = 0;
+
 setInterval(async() => {
     d = new Date().toJSON().slice(0,10).split("-")
     d = d[2]+"-"+d[1]+"-"+d[0]
@@ -617,6 +610,7 @@ setInterval(async() => {
         did = getIdByKey(district)
         await fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
             cr_err_cnt = 0
+            ipdowncnt = 0
             //cr_host = cr_host
             //cr_port = cr_port
 
@@ -671,6 +665,7 @@ setInterval(async() => {
             }
         }).catch(error =>{
             cr_err_cnt += 1
+            ipdowncnt += 1
             if(cr_err_cnt == max_err_cnt){
                 if(cr_host != b_host){
                     t_host = cr_host
@@ -682,6 +677,9 @@ setInterval(async() => {
                     //bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Server Shifted from : <code>"+b_host+":"+b_port+"</code> -> <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
                     console.log("IP Shifted")
                 }
+                if((ipdowncnt % 10)==0){
+                    bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Down, Max Try :<b>"+ipdowncnt+"</b>\n\n Current : <code>"+cr_host+":"+cr_port+"</code> \nBackup : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
+                }
                 cr_err_cnt = 0
                 //rotateIP()
             }
@@ -691,6 +689,21 @@ setInterval(async() => {
     })
 }, 60*1000*(Number(process.env.ref_tm)));
 
+
+// Process Termination
+const fs = require('fs');
+const a = [`exit`,`SIGINT`,`SIGUSR1`,`SIGUSR2`,`uncaughtException`,`SIGTERM`]
+a.forEach((eventType)=>{
+    process.on(eventType,()=>{
+        fs.writeFile('data.json',JSON.stringify({'listOfzip':zip,'dis':ListOfDistricts}),err=>{
+            console.log(err)
+        })
+        console.log("Data Saved")
+    })
+})
+
+
+// Web Routs 
 app.get("/",(req,res)=>{
     res.send("Please Use Telegram Bot")
 })
@@ -698,4 +711,7 @@ app.get("/",(req,res)=>{
 
 app.listen(process.env.PORT,()=>{
     console.log("Server Running")
+    console.log("Data Fetched....!")
+    console.log("List of Districts : "+ListOfDistricts)
+    console.log("List of Pincodes : "+zip)
 })
