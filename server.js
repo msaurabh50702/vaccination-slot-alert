@@ -21,19 +21,19 @@ app.use(bodyParser.json())
 const states = require("./states.json")
 let users = {}
 let zip = ["423109","423601","423107"]
-let ListOfDistricts = ["Maharashtra"]
+let ListOfDistricts = ["Ahmednagar"]
 
-let max_err_cnt = 4
+let max_err_cnt = 2
 let cr_err_cnt = 0
 let cr_host = process.env.PROXY_HOST
 let cr_port = process.env.PROXY_PORT
 
-let b_host = "14.140.31.28"
+let b_host = "14.140.131.82"
 let b_port = 3128
 
 
 hind = -1
-hsts = ['13.127.74.133:80','117.196.230.16:8080',"115.243.184.76:23500",String(b_host+":"+b_port)]
+hsts = ['13.127.74.133:80']
 
 async function fetchData(url) {
     return new Promise((resolve, reject) => {
@@ -610,15 +610,15 @@ const rotateIP = () => {
 }
 
 
-setInterval(() => {
+setInterval(async() => {
     d = new Date().toJSON().slice(0,10).split("-")
     d = d[2]+"-"+d[1]+"-"+d[0]
-    ListOfDistricts.forEach(district=>{
+    ListOfDistricts.forEach(async(district)=>{
         did = getIdByKey(district)
-        fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
-            //cr_err_cnt = 0
-            cr_host = cr_host
-            cr_port = cr_port
+        await fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
+            cr_err_cnt = 0
+            //cr_host = cr_host
+            //cr_port = cr_port
 
             console.log("Connected : "+cr_host+":"+cr_port+" => "+district)
             centers = data['data'].centers.filter((center)=> {
@@ -672,8 +672,18 @@ setInterval(() => {
         }).catch(error =>{
             cr_err_cnt += 1
             if(cr_err_cnt == max_err_cnt){
+                if(cr_host != b_host){
+                    t_host = cr_host
+                    t_port = cr_port
+                    cr_host = b_host
+                    cr_port = b_port
+                    b_port = t_port
+                    b_host = t_host
+                    //bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Server Shifted from : <code>"+b_host+":"+b_port+"</code> -> <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
+                    console.log("IP Shifted")
+                }
                 cr_err_cnt = 0
-                rotateIP()
+                //rotateIP()
             }
             console.log("Data Fetching Error -> "+error)
         });
