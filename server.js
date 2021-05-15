@@ -755,7 +755,7 @@ const fs = require('fs');
 const a = [`exit`,`SIGINT`,`SIGUSR1`,`SIGUSR2`,`uncaughtException`,`SIGTERM`]
 a.forEach((eventType)=>{
     process.on(eventType,()=>{
-        d = JSON.stringify({'listOfzip':zip,'dis':ListOfDistricts})
+        d = JSON.stringify({'listOfzip':zip.toString(),'dis':ListOfDistricts.toString()})
         console.log(d)
         fs.writeFile('data.json',d,err=>{
             console.log(err)
