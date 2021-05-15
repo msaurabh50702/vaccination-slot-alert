@@ -180,7 +180,7 @@ const slotBooked = (c_id,pin,msg_id) =>{
                     }
                 })
             });      
-            bot.sendMessage(c_id,"<b>Congratulations...!</b> \n\n <i>As you have Booked slot, I removed tracker from <strong>"+pin+"</strong>. If you want to track it again use /setTracker ]Command</i>",{parse_mode : "HTML"}).then(()=>{
+            bot.sendMessage(c_id,"<b>Congratulations...!</b> \n\n <i>As you have Booked slot, I removed tracker from <strong>"+pin+"</strong>. If you want to track it again use /setTracker Command</i>",{parse_mode : "HTML"}).then(()=>{
                // bot.editMessageReplyMarkup(msg_id,{reply_markup:null})
                 //bot.editMessageReplyMarkup("hello",{message_id:msg_id,chat_id:c_id,reply_markup:{remove_keyboard:true}})
                 bot.deleteMessage(c_id,msg_id)
@@ -406,6 +406,36 @@ bot.onText(/\/help/, (msg, match) => {
     bot.sendMessage(msg.chat.id, resp,{parse_mode:"HTML"});
 });
 
+bot.onText(/\/pause/,(msg,match)=>{
+    user.findOneAndUpdate({chat_id:msg.chat.id},{paused:true}).then(doc => {
+        if(doc == null) throw "Unauthorised Access"
+        else{
+            bot.sendMessage(msg.chat.id,"Now I have paused your alert messages.\n<i>you can start it using /resume command</i>.",{parse_mode:"HTML"})
+        }
+    }).catch(err => {
+        console.log('Oh! Dark '+err)
+        if(err === "Unauthorised Access")
+            bot.sendMessage(msg.chat.id,"Invalid Invitation code")
+        else
+            bot.sendMessage(msg.chat.id,"Something went wrong\n<b>Can't Fetch your Tracker's</b>",{parse_mode:"HTML"})
+    })
+})
+
+bot.onText(/\/resume/,(msg,match)=>{
+    user.findOneAndUpdate({chat_id:msg.chat.id},{paused:false}).then(doc => {
+        if(doc == null) throw "Unauthorised Access"
+        else{
+            bot.sendMessage(msg.chat.id,"Your alert messages are activated.\n<i>Once sloat available in your area I will send message to you.</i>.",{parse_mode:"HTML"})
+        }
+    }).catch(err => {
+        console.log('Oh! Dark '+err)
+        if(err === "Unauthorised Access")
+            bot.sendMessage(msg.chat.id,"Invalid Invitation code")
+        else
+            bot.sendMessage(msg.chat.id,"Something went wrong\n<b>Can't Fetch your Tracker's</b>",{parse_mode:"HTML"})
+    })
+})
+
 bot.onText(/\/setProxy/,async(msg,mt)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
         bot.sendMessage(msg.chat.id,"Current Proxy : <code>"+cr_host+":"+cr_port+"</code>\nBackup Proxy : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
@@ -420,7 +450,7 @@ bot.onText(/\/setBProxy/,async(msg,mt)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
         bot.sendMessage(msg.chat.id,"Your Current Backup Proxy is : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
         proxy = await askQuestion(msg.chat.id,"Enter New Proxy")
-        bot.sendMessage(msg.chat.id,"Now Backup Proxy set to : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
+       // bot.sendMessage(msg.chat.id,"Now Backup Proxy set to : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
         proxy = proxy['text'].split(":")
         b_host = proxy[0]
         b_port = Number(proxy[1])
@@ -588,6 +618,35 @@ bot.onText(/\/popIP/,async(msg,mt)=>{
     }
 })
 
+const testProxy =async (ip,p)=>{
+    d = new Date().toJSON().slice(0,10).split("-")
+    d = d[2]+"-"+d[1]+"-"+d[0]
+    const agent1 = tunnel.httpsOverHttp({
+        proxy: {
+            host: ip,
+            port: p,
+        },
+    });
+    return axios.get("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=110001&date="+d,{ headers: { 
+                                'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
+                             },
+                             httpsAgent: agent1,
+                             timeout:1000
+                    })
+
+}
+
+bot.onText(/\/testIP/,async(msg,match)=>{
+    if(msg.chat.id == process.env.MY_CHAT_ID){
+        pro = await askQuestion(process.env.MY_CHAT_ID,"Enter IP Addredd")
+        await testProxy(pro['text'].split(":")[0],pro['text'].split(":")[1]).then(data => {
+            bot.sendMessage(process.env.MY_CHAT_ID,"Connected to : <code>"+pro['text']+"</code>",{parse_mode:"HTML"})
+        }).catch(err=>{
+            bot.sendMessage(process.env.MY_CHAT_ID,"Can't Connect to : <code>"+pro['text']+"</code>\n\nError -> <code>"+err+"</code>",{parse_mode:"HTML"})
+        })
+    }
+})
+
 
 const rotateIP = () => {
     hind += 1
@@ -599,6 +658,7 @@ const rotateIP = () => {
         cr_port = hsts[hind].split(":")[1]
     }
 }
+
 
 
 let ipdowncnt = 0;
@@ -634,7 +694,7 @@ setInterval(async() => {
 
             if(centers.length > 0){
                 console.log(centers[0]['district_name'])
-                user.find({district:String(centers[0]['district_name'])},(err,dbdata) => {
+                user.find({district:String(centers[0]['district_name']),paused:false},(err,dbdata) => {
                     try{
                         if(err) throw "Database Error : "+err
                         else if(dbdata == null && dbdata.length == 0) throw "No Data with "+centers['district_name']
@@ -695,7 +755,9 @@ const fs = require('fs');
 const a = [`exit`,`SIGINT`,`SIGUSR1`,`SIGUSR2`,`uncaughtException`,`SIGTERM`]
 a.forEach((eventType)=>{
     process.on(eventType,()=>{
-        fs.writeFile('data.json',JSON.stringify({'listOfzip':zip,'dis':ListOfDistricts}),err=>{
+        d = JSON.stringify({'listOfzip':zip,'dis':ListOfDistricts})
+        console.log(d)
+        fs.writeFile('data.json',d,err=>{
             console.log(err)
         })
         console.log("Data Saved")
