@@ -13,6 +13,16 @@ let Users = new mongoose.Schema({
     accVerified:{type:Boolean}
 },{timestamps:true})
 
+let dis = new mongoose.Schema({
+    name:{type:String}
+})
+
+let pin = new mongoose.Schema({
+    pincode:{type:String}
+})
+
 
 user = mongoose.model('user', Users);
-module.exports = {user,appn}
+districts = mongoose.model('districts',dis)
+pincodes = mongoose.model('pincodes',pin)
+module.exports = {user,appn,districts,pincodes}

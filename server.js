@@ -11,7 +11,7 @@ require("dotenv").config()
 const bot = new TelegramBot(process.env.tokens2, {polling: true});
 const app = express()
 const db = require("./initDB")
-const { user,appn } = require("./schema");
+const { user,appn,districts,pincodes } = require("./schema");
 const { now } = require("mongoose");
 
 
@@ -20,17 +20,17 @@ app.use(bodyParser.json())
 
 const states = require("./states.json")
 
-data = require("./data.json")
-let zip = data['listOfzip']
-let ListOfDistricts = data['dis']
+//data = require("./data.json")
+let zip = []
+let ListOfDistricts = []
 
 let max_err_cnt = 2
 let cr_err_cnt = 0
 let cr_host = process.env.PROXY_HOST
 let cr_port = process.env.PROXY_PORT
 
-let b_host = "14.140.131.82"
-let b_port = 3128
+let b_host = process.env.B_HOST || "13.235.248.19"
+let b_port = process.env.B_PORT || 3128
 
 
 hind = -1
@@ -145,24 +145,54 @@ const getDist = (stat)=>{
 const updateZipArray = (opn) =>{
     if(opn.operation == "Add"){
         zip.indexOf(opn.code) === -1 && zip.push(opn.code);
+        pincodes.find({pincode:opn.code}).then(data => {
+            if(data == null || data.length == 0){
+                pin = new pincodes({pincode:opn.code})
+                pin.save().then(d =>{
+                    console.log(d['pincode']+" Added in Database")
+                }).catch(err=>{
+                    console.log("Error while adding pincode into Database->")
+                })
+            }
+        })
     }
     else if(opn.operation == "Del"){
         var index = zip.indexOf(opn.code);
         if (index !== -1) {
             zip.splice(index, 1);
         }
+        pincodes.deleteOne({pincode:opn.code}).then(data => {
+            console.log("Pincode Removed from Database")
+        }).catch(err => {
+            console.log("Error while deleting pincode from Database")
+        })
     }
     console.log("Zip : "+zip)
 }
 const updateDisAppay = (opn)=>{
     if(opn.operation == "Add"){
         ListOfDistricts.indexOf(opn.code) === -1 && ListOfDistricts.push(opn.code);
+        districts.find({name:opn.code}).then(data => {
+            if(data == null || data.length == 0){
+                pin = new districts({name:opn.code})
+                pin.save().then(d =>{
+                    console.log(d['name']+" Added in Database")
+                }).catch(err=>{
+                    console.log("Error while adding District into Database ->")
+                })
+            }
+        })
     }
     else if(opn.operation == "Del"){
         var index = ListOfDistricts.indexOf(opn.code);
         if (index !== -1) {
             ListOfDistricts.splice(index, 1);
         }
+        districts.deleteOne({name:opn.code}).then(data => {
+            console.log("District Removed from Database")
+        }).catch(err => {
+            console.log("Error while deleting District from Database")
+        })
     }
     console.log("Dist : "+ListOfDistricts)
 }
@@ -173,9 +203,20 @@ const slotBooked = (c_id,pin,msg_id) =>{
         else{
             doc['appl'] = deleteObj(doc['appl'], 'pin', Number(pin));
             doc.save().then(data =>{
-                user.find({'appl.pin':Number(pin)}).then(rem =>{
+                user.find({'appl.pin':Number(pin['text'])}).then(rem =>{
                     if(rem == null || rem.length == 0){
-                        updateZipArray({operation:"Del",code:pin})
+                        updateZipArray({operation:"Del",code:pin['text']})
+                    }
+                }).catch(e=>{
+                    console.log("Error while getting data by pincodes")
+                })
+                user.find({district:doc['district']}).then(databyd =>{
+                    let flg = 1
+                    databyd.forEach(d =>{
+                        if(d['appl'].length != 0)
+                            flg = 0
+                    })
+                    if(flg == 1){
                         updateDisAppay({operation:"Del",code:data['district']})
                     }
                 })
@@ -334,13 +375,24 @@ bot.onText(/\/delTracker/,async (msg,match)=>{
         else{
             pin = await askQuestion(msg.chat.id, 'Enter Your Pincode')
             res = deleteObj(doc['appl'], 'pin', Number(pin['text']));
-            console.log(res)
+            //console.log(res)
             if(res == null) throw "Invalid Pincode"
             doc['appl'] = res
             doc.save().then(data =>{
                 user.find({'appl.pin':Number(pin['text'])}).then(rem =>{
                     if(rem == null || rem.length == 0){
                         updateZipArray({operation:"Del",code:pin['text']})
+                    }
+                }).catch(e=>{
+                    console.log("Error while getting data by pincodes")
+                })
+                user.find({district:doc['district']}).then(databyd =>{
+                    let flg = 1
+                    databyd.forEach(d =>{
+                        if(d['appl'].length != 0)
+                            flg = 0
+                    })
+                    if(flg == 1){
                         updateDisAppay({operation:"Del",code:data['district']})
                     }
                 })
@@ -591,7 +643,7 @@ app.listen(process.env.PORT,()=>{
 */
 bot.onText(/\/status/,(msg,mt)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
-        bot.sendMessage(process.env.MY_CHAT_ID,"<b>Pincodes : </b><code>"+zip.toString()+"</code>\n\n<b>District : </b>"+ListOfDistricts.toString(),{parse_mode:"HTML"})
+        bot.sendMessage(process.env.MY_CHAT_ID,"<b>Pincodes : </b><code>"+zip.toString()+"</code>\n\n<b>District : </b>"+ListOfDistricts.toString()+"\n\nCurrent Proxy : <code>"+cr_host+":"+cr_port+"</code>\n Backup : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
     }
 })
 
@@ -693,7 +745,7 @@ setInterval(async() => {
             })
 
             if(centers.length > 0){
-                console.log(centers[0]['district_name'])
+                //console.log(centers[0]['district_name'])
                 user.find({district:String(centers[0]['district_name']),paused:false},(err,dbdata) => {
                     try{
                         if(err) throw "Database Error : "+err
@@ -752,18 +804,41 @@ setInterval(async() => {
 
 // Process Termination
 const fs = require('fs');
+const { brotliCompress } = require("zlib");
 const a = [`exit`,`SIGINT`,`SIGUSR1`,`SIGUSR2`,`uncaughtException`,`SIGTERM`]
 a.forEach((eventType)=>{
     process.on(eventType,()=>{
         d = JSON.stringify({'listOfzip':zip.toString(),'dis':ListOfDistricts.toString()})
-        console.log(d)
+        //console.log(d)
+        /*
         fs.writeFile('data.json',d,err=>{
             console.log(err)
         })
-        console.log("Data Saved")
+        */
+        bot.sendMessage(process.env.MY_CHAT_ID,"Server Disconnected")
+        console.log("Process Terminating")
     })
 })
 
+
+const fetchDisPin = async()=>{
+    await districts.find({},{name:1,_id:0}).then(data => {
+        data.forEach(dis => {
+            ListOfDistricts.push(dis['name'])
+        })
+        console.log("Districts Fetched")
+    }).catch(err => {
+        console.log("Error while fetching Districts")
+    })
+    await pincodes.find({},{pincode:1,_id:0}).then(data => {
+        data.forEach(dis => {
+            zip.push(dis['pincode'])
+        })
+        console.log("Pincodes Fetched")
+    }).catch(err => {
+        console.log("Error while fetching Pincodes")
+    })
+}
 
 // Web Routs 
 app.get("/",(req,res)=>{
@@ -771,9 +846,10 @@ app.get("/",(req,res)=>{
 })
 
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT,async ()=>{
     console.log("Server Running")
-    console.log("Data Fetched....!")
+    await fetchDisPin()
+    
     console.log("List of Districts : "+ListOfDistricts)
     console.log("List of Pincodes : "+zip)
 })
