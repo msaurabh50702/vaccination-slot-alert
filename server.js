@@ -72,8 +72,8 @@ async function fetchData1(url) {
     return axios.get(url,{ headers: { 
                                 'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
                              },
-                             httpsAgent: agent,
-                             timeout:1000
+                            httpsAgent: agent,
+                            timeout:500
                     })
 }
 
@@ -151,7 +151,7 @@ const updateZipArray = (opn) =>{
                 pin.save().then(d =>{
                     console.log(d['pincode']+" Added in Database")
                 }).catch(err=>{
-                    console.log("Error while adding pincode into Database->")
+                    console.log("Error while adding pincode into Database ->"+err)
                 })
             }
         })
@@ -164,7 +164,7 @@ const updateZipArray = (opn) =>{
         pincodes.deleteOne({pincode:opn.code}).then(data => {
             console.log("Pincode Removed from Database")
         }).catch(err => {
-            console.log("Error while deleting pincode from Database")
+            console.log("Error while deleting pincode from Database -> "+err)
         })
     }
     console.log("Zip : "+zip)
@@ -178,7 +178,7 @@ const updateDisAppay = (opn)=>{
                 pin.save().then(d =>{
                     console.log(d['name']+" Added in Database")
                 }).catch(err=>{
-                    console.log("Error while adding District into Database ->")
+                    console.log("Error while adding District into Database ->"+err)
                 })
             }
         })
@@ -191,7 +191,7 @@ const updateDisAppay = (opn)=>{
         districts.deleteOne({name:opn.code}).then(data => {
             console.log("District Removed from Database")
         }).catch(err => {
-            console.log("Error while deleting District from Database")
+            console.log("Error while deleting District from Database ->"+err)
         })
     }
     console.log("Dist : "+ListOfDistricts)
@@ -203,12 +203,12 @@ const slotBooked = (c_id,pin,msg_id) =>{
         else{
             doc['appl'] = deleteObj(doc['appl'], 'pin', Number(pin));
             doc.save().then(data =>{
-                user.find({'appl.pin':Number(pin['text'])}).then(rem =>{
+                user.find({'appl.pin':Number(pin)}).then(rem =>{
                     if(rem == null || rem.length == 0){
-                        updateZipArray({operation:"Del",code:pin['text']})
+                        updateZipArray({operation:"Del",code:pin})
                     }
                 }).catch(e=>{
-                    console.log("Error while getting data by pincodes")
+                    console.log("Error while getting data by pincodes "+e)
                 })
                 user.find({district:doc['district']}).then(databyd =>{
                     let flg = 1
@@ -253,7 +253,7 @@ bot.on("callback_query", function onCallbackQuery(callbackQuery) {
     else if(callbackQuery.message.text == 'Please Select Your District'){
         bot.deleteMessage(callbackQuery.from.id,callbackQuery.message.message_id)
         bot.sendMessage(callbackQuery.from.id,"Now you can /setTracker on pincode which belongs to  <b>"+callbackQuery.data+"</b> District",{parse_mode:"HTML"})
-        user.findOneAndUpdate({chat_id:callbackQuery.from.id}, {district:callbackQuery.data}, function(err, doc) {
+        user.findOneAndUpdate({chat_id:callbackQuery.from.id}, {district:callbackQuery.data,appl:[]}, function(err, doc) {
             if (err) console.log("District Updation Failed");
         });
     }
@@ -690,7 +690,7 @@ const testProxy =async (ip,p)=>{
 
 bot.onText(/\/testIP/,async(msg,match)=>{
     if(msg.chat.id == process.env.MY_CHAT_ID){
-        pro = await askQuestion(process.env.MY_CHAT_ID,"Enter IP Addredd")
+        pro = await askQuestion(process.env.MY_CHAT_ID,"Enter IP Address")
         await testProxy(pro['text'].split(":")[0],pro['text'].split(":")[1]).then(data => {
             bot.sendMessage(process.env.MY_CHAT_ID,"Connected to : <code>"+pro['text']+"</code>",{parse_mode:"HTML"})
         }).catch(err=>{
@@ -715,6 +715,7 @@ const rotateIP = () => {
 
 let ipdowncnt = 0;
 
+/*
 setInterval(async() => {
     d = new Date().toJSON().slice(0,10).split("-")
     d = d[2]+"-"+d[1]+"-"+d[0]
@@ -801,6 +802,97 @@ setInterval(async() => {
     })
 }, 60*1000*(Number(process.env.ref_tm)));
 
+*/
+
+let dis_ind = 0;
+
+const sendMessages = async()=>{
+    d = new Date().toJSON().slice(0,10).split("-")
+    d = d[2]+"-"+d[1]+"-"+d[0]
+    did = getIdByKey(ListOfDistricts[dis_ind])
+    await fetchData1("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+did+"&date="+d).then(data =>{
+            cr_err_cnt = 0
+            ipdowncnt = 0
+            console.log("Connected : "+cr_host+":"+cr_port+" => "+ListOfDistricts[dis_ind]+" "+dis_ind)
+            centers = data['data'].centers.filter((center)=> {
+                if(zip.indexOf(String(center.pincode)) !== -1){
+                    str = ""
+                    session = center['sessions'].filter((ssn,ind)=>{
+                        if(ssn.available_capacity > 0){ // Change This for Befour Deployment
+                            str += "<strong>  Date : "+ssn.date+"</strong>\n<b>      Remaining Slots : </b>"+ssn.available_capacity+"\n<b>      vaccine : </b>"+ssn.vaccine+"\n      <b>Age Limit : </b>"+ssn.min_age_limit+"\n      <b>Dose-1 Capacity : </b>"+ssn.available_capacity_dose1+"\n      <b>Dose-2 Capacity : </b>"+ssn.available_capacity_dose2+"+\n\n"
+                            return ssn
+                        }
+                    })
+                    if(session.length > 0){
+                        center['sessions'] = session
+                        center['session_msg'] = str
+                        return center
+                    }
+                } 
+            })
+
+            if(centers.length > 1){
+                //console.log(centers[0]['district_name'])
+                user.find({district:String(centers[0]['district_name']),paused:false},(err,dbdata) => {
+                    try{
+                        if(err) throw "Database Error : "+err
+                        else if(dbdata == null && dbdata.length == 0) throw "No Data with "+centers['district_name']
+                        else{
+                            dbdata.forEach(usr => {
+                                usr['appl'].filter(appl=>{
+                                    cn = centers.filter(cntr=> { if(cntr.pincode == Number(appl.pin)) return cntr })
+                                    if(cn.length > 0){
+                                        cn.forEach(cntr => {
+                                            msg = "<b>SLOT AVAILABLE...! ✅</b>\n\n<b>Name : </b>"+cntr.name+"\n<b>Pincode : </b>"+cntr.pincode+"\n<b>Fee Type : </b>"+cntr.fee_type+"\n\n<b>Available Slots : </b>\n"
+                                            //msg += "\n\n/pause - to Pause Messages command \n\n/delTracker - to Remove Tracker on Pincode"
+                                            msg += cntr['session_msg']
+                                            msg += "\n\n<strong>Stay Home, Stay Safe..!  😷</strong>"
+                                            const keyboard2 = Keyboard.inline([Key.callback('Booked 👍',"Booked:"+cntr.pincode),'Not Booked 👎' ])
+                                            bot.sendMessage(usr.chat_id,msg,{reply_markup:keyboard2["reply_markup"],parse_mode:"HTML"}).catch(err => {
+                                                console.log("Message Sending Skipped -> "+err)
+                                            })
+                                        })
+                                    }
+                                })
+                            })
+                        }
+
+                    }catch(dberr){
+                        console.log("DB Error -> "+dberr)
+                    }      
+                })
+            }
+            dis_ind += 1
+            setTimeout(sendMessages, 60*1000*(Number(process.env.ref_tm)));
+        }).catch(error =>{
+            cr_err_cnt += 1
+            ipdowncnt += 1
+            if(cr_err_cnt == max_err_cnt){
+                if(cr_host != b_host){
+                    t_host = cr_host
+                    t_port = cr_port
+                    cr_host = b_host
+                    cr_port = b_port
+                    b_port = t_port
+                    b_host = t_host
+                    //bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Server Shifted from : <code>"+b_host+":"+b_port+"</code> -> <code>"+cr_host+":"+cr_port+"</code>",{parse_mode:"HTML"})
+                    console.log("IP Shifted")
+                }
+                if((ipdowncnt % 10)==0){
+                    bot.sendMessage(process.env.MY_CHAT_ID,"Proxy Down, Max Try :<b>"+ipdowncnt+"</b>\n\n Current : <code>"+cr_host+":"+cr_port+"</code> \nBackup : <code>"+b_host+":"+b_port+"</code>",{parse_mode:"HTML"})
+                }
+                cr_err_cnt = 0
+                //rotateIP()
+            }
+            console.log("<"+ListOfDistricts[dis_ind]+"> Data Fetching Error -> "+error)
+            setTimeout(sendMessages, 60*1000*(Number(process.env.ref_tm)));
+        });
+
+        if(dis_ind == ListOfDistricts.length)
+            dis_ind = 0
+
+}
+
 
 // Process Termination
 const fs = require('fs');
@@ -847,8 +939,10 @@ app.get("/",(req,res)=>{
 
 
 app.listen(process.env.PORT,async ()=>{
+    bot.sendMessage(process.env.MY_CHAT_ID,"Server Started...!")
     console.log("Server Running")
     await fetchDisPin()
+    sendMessages();
     
     console.log("List of Districts : "+ListOfDistricts)
     console.log("List of Pincodes : "+zip)

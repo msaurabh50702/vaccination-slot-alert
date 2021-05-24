@@ -1,20 +1,46 @@
-def decrypt(input1):
-    a = input1.split("+")
-    n1 = a[0]
-    n2 = a[1].split("=")[0]
-    n3 = a[1].split("=")[1]
+def solution(input_from_question,inp):
+    lst = []
+    flag = 0
+    #inp = input().split(" ")
+    inp = inp.split(" ")
 
-    print(n1,n2,n3)
+    for x in inp:
+        if len(x) != 6:
+            lst.append(x)
+            flag = 0
 
-    if n1 == 'X':
-        return int(n3)-int(n2)
-    elif n2 == 'X':
-        return int(n3)-int(n1)
-    elif n3 == 'X':
-        return int(n1)+int(n2)
-
-
-
+    if len(lst) == 0:
+        return 0
+    else:
+        return " ".join(lst)
 
 
-print(decrypt("5+X=7"))
+print(solution(5,"103010 12036 20626 2 661281"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def solution1(input_from_program):
+    return sum(list(map(int,input_from_program.split(" "))))
