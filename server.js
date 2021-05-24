@@ -73,7 +73,7 @@ async function fetchData1(url) {
                                 'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
                              },
                             httpsAgent: agent,
-                            timeout:500
+                            timeout:800
                     })
 }
 
@@ -819,7 +819,7 @@ const sendMessages = async()=>{
                     str = ""
                     session = center['sessions'].filter((ssn,ind)=>{
                         if(ssn.available_capacity > 0){ // Change This for Befour Deployment
-                            str += "<strong>  Date : "+ssn.date+"</strong>\n<b>      Remaining Slots : </b>"+ssn.available_capacity+"\n<b>      vaccine : </b>"+ssn.vaccine+"\n      <b>Age Limit : </b>"+ssn.min_age_limit+"\n      <b>Dose-1 Capacity : </b>"+ssn.available_capacity_dose1+"\n      <b>Dose-2 Capacity : </b>"+ssn.available_capacity_dose2+"+\n\n"
+                            str += "<strong>  Date : "+ssn.date+"</strong>\n<b>      Remaining Slots : </b>"+ssn.available_capacity+"\n          <b>Dose-1 Capacity : </b>"+ssn.available_capacity_dose1+"\n          <b>Dose-2 Capacity : </b>"+ssn.available_capacity_dose2+"\n<b>      vaccine : </b>"+ssn.vaccine+"\n      <b>Age Limit : </b>"+ssn.min_age_limit+"+\n\n"
                             return ssn
                         }
                     })
