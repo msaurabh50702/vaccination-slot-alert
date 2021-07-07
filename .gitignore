@@ -2,7 +2,11 @@ node_modules/
 .env
 server1.js
 server2.js
+server3.js
 ips.txt
 test.json
-abc.py
-def.py
+zip.txt
+dis.txt
+states.json
+data.json
+package-lock.json
